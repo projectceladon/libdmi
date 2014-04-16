@@ -29,6 +29,7 @@
 
 #include "parse_dmi.h"
 #include "dmi_intel.h"
+#include "libdmi.h"
 
 struct intel_0x94 {
 	struct dmi_header hdr;
@@ -84,7 +85,7 @@ static struct field_desc intel_0x94_desc[] = {
 char *intel_dmi_parser(struct dmi_header *dmi, char *field)
 {
 	switch (dmi->type) {
-	case 0x94:
+	case INTEL_SMBIOS:
 		PARSE_FIELD(intel_0x94, dmi, field);
 		break;
 	default:

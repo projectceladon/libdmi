@@ -82,7 +82,7 @@ close:
 	return size;
 }
 
-static struct dmi_header *dmisysfs_gettype(unsigned char type)
+static struct dmi_header *dmisysfs_gettype(enum smbios_type type)
 {
 	int fd;
 	char *path;
@@ -177,7 +177,7 @@ static char *dmi_getfield(struct dmi_header *dmi, char *field)
 	}
 }
 
-char *libdmi_getfield(unsigned char type, char *field)
+char *libdmi_getfield(enum smbios_type type, char *field)
 {
 	struct dmi_header *dmi = dmisysfs_gettype(type);
 	if (!dmi)

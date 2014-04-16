@@ -22,3 +22,8 @@ LOCAL_SRC_FILES:= \
 LOCAL_STATIC_LIBRARIES := liblog libdmi libcutils
 
 include $(BUILD_EXECUTABLE)
+
+include $(CLEAR_VARS)
+LOCAL_COPY_HEADERS := libdmi.h
+LOCAL_COPY_HEADERS_TO := libdmi
+include $(BUILD_COPY_HEADERS)

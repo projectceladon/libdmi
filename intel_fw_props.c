@@ -97,11 +97,10 @@ static void get_args(int argc, char **argv)
 		}
 }
 
-#define INTEL_SMBIOS 148
 struct dmi_props {
 	char *property;
 	char *field_name;
-	unsigned char type;
+	enum smbios_type type;
 } intel_fw_props[] = {
 	{"sys.ia32.version", "BiosVersion", INTEL_SMBIOS},
 	{"sys.ifwi.version", "bios_version", BIOS_INFORMATION},
@@ -112,7 +111,7 @@ struct dmi_props {
 int main(int argc, char *argv[])
 {
 	int ret = EXIT_FAILURE;
-	int i;
+	unsigned i;
 	char *dmi_value;
 
 	get_args(argc, argv);

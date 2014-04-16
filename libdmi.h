@@ -30,7 +30,7 @@
 #ifndef _LIB_DMI_H_
 #define _LIB_DMI_H_
 
-enum {
+enum smbios_type {
 	BIOS_INFORMATION,
 	SYSTEM_INFORMATION,
 	BASEBOARD_INFORMATION,
@@ -77,8 +77,9 @@ enum {
 	INACTIVE = 126,
 	END_OF_TABLE = 127,
 	OEM_SPECIFIC = 128,
+	INTEL_SMBIOS = 0x94,
 };
 
-char *libdmi_getfield(unsigned char type, char *field);
+char *libdmi_getfield(enum smbios_type type, char *field);
 
 #endif /* _LIB_DMI_H_ */
