@@ -106,6 +106,9 @@ struct dmi_props {
 	{"sys.ifwi.version", "bios_version", BIOS_INFORMATION},
 	{"sys.chaabi.version", "SECVersion", INTEL_SMBIOS},
 	{"sys.pmic.version", "PmicVersion", INTEL_SMBIOS},
+	{"sys.pmc.version", "PMCVersion", INTEL_SMBIOS},
+	{"sys.punit.version", "PUnitVersion", INTEL_SMBIOS},
+	{"sys.gop.version", "GopVersion", INTEL_SMBIOS},
 };
 
 int main(int argc, char *argv[])
