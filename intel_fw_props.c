@@ -38,7 +38,7 @@
 #include <getopt.h>
 #include <stdbool.h>
 #include <libgen.h>
-#include <libdmi.h>
+#include <inc/libdmi.h>
 #include <cutils/properties.h>
 
 #define LOG_TAG "intel_firmware_props"

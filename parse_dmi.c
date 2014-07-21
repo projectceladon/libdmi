@@ -32,7 +32,7 @@
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
-#include "libdmi.h"
+#include "inc/libdmi.h"
 #include "parse_dmi.h"
 #include "dmi_intel.h"
 

@@ -29,7 +29,7 @@
 
 #include "parse_dmi.h"
 #include "dmi_intel.h"
-#include "libdmi.h"
+#include "inc/libdmi.h"
 
 struct intel_0x94 {
 	struct dmi_header hdr;
