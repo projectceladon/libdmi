@@ -9,6 +9,7 @@ LOCAL_SRC_FILES:= \
 LOCAL_MODULE := libdmi
 LOCAL_MODULE_TAGS := optional
 LOCAL_SHARED_LIBRARIES := liblog
+LOCAL_EXPORT_C_INCLUDE_DIRS := $(LOCAL_PATH)/inc
 
 include $(BUILD_STATIC_LIBRARY)
 
@@ -23,7 +24,3 @@ LOCAL_STATIC_LIBRARIES := liblog libdmi libcutils
 
 include $(BUILD_EXECUTABLE)
 
-include $(CLEAR_VARS)
-LOCAL_COPY_HEADERS := libdmi.h
-LOCAL_COPY_HEADERS_TO := libdmi
-include $(BUILD_COPY_HEADERS)
