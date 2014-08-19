@@ -48,19 +48,19 @@ static bool verbose = 1;
 
 #define debug(...)				\
 	if (verbose) {				\
-		LOGD(__VA_ARGS__);		\
+		ALOGD(__VA_ARGS__);		\
 		printf(__VA_ARGS__);		\
 	}
 #define info(...) {				\
-		LOGI(__VA_ARGS__);		\
+		ALOGI(__VA_ARGS__);		\
 		printf(__VA_ARGS__);		\
 	}
 #define warn(...) {				\
-		LOGW(__VA_ARGS__);		\
+		ALOGW(__VA_ARGS__);		\
 		fprintf(stderr, __VA_ARGS__);	\
 	}
 #define error(...) {				\
-		LOGE(__VA_ARGS__);		\
+		ALOGE(__VA_ARGS__);		\
 		fprintf(stderr, __VA_ARGS__);	\
 	}
 
