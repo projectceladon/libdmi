@@ -121,6 +121,7 @@ struct vendor_parser {
 
 static const struct vendor_parser vendor_parsers[] = {
 	{"Intel Corp.", intel_dmi_parser},
+	{"Intel Corporation", intel_dmi_parser},
 };
 
 static char *dmi_get_vendor(void);

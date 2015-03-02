@@ -62,13 +62,13 @@ struct dmi_header {
 	unsigned char type;
 	unsigned char length;
 	unsigned short handle;
-};
+} __attribute__((packed));
 
 struct field_desc {
 	char *field;
 	unsigned int offset;
 	unsigned int type_size;
-};
+} __attribute__((packed));
 
 struct field_desc *get_field_desc(struct field_desc *list, int list_size, char *field);
 char *parse_dmi_field(struct dmi_header *dmi, unsigned char *data, int type_size);
@@ -79,19 +79,23 @@ struct bios_information {
 	unsigned char bios_version;
 	unsigned short bios_start_addr;
 	unsigned char bios_release_date;
+	unsigned char bios_rom_size;
 	__int64_t bios_characteristics;
+	unsigned short bios_characteristics_ext;
 	unsigned char bios_major_release;
 	unsigned char bios_minor_release;
 	unsigned char bios_controller_major_release;
 	unsigned char bios_controller_minor_release;
-};
+} __attribute__((packed));
 
 static struct field_desc bios_information_desc[] = {
 	FIELD_DESC(struct bios_information, bios_vendor, 0),
 	FIELD_DESC(struct bios_information, bios_version, 0),
 	FIELD_DESC(struct bios_information, bios_start_addr, 2),
 	FIELD_DESC(struct bios_information, bios_release_date, 0),
+	FIELD_DESC(struct bios_information, bios_rom_size, 1),
 	FIELD_DESC(struct bios_information, bios_characteristics, 8),
+	FIELD_DESC(struct bios_information, bios_characteristics_ext, 2),
 	FIELD_DESC(struct bios_information, bios_major_release, 1),
 	FIELD_DESC(struct bios_information, bios_minor_release, 1),
 	FIELD_DESC(struct bios_information, bios_controller_major_release, 1),
