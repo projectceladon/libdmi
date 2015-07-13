@@ -102,6 +102,29 @@ static struct field_desc bios_information_desc[] = {
 	FIELD_DESC(struct bios_information, bios_controller_minor_release, 1),
 };
 
+struct system_information {
+	struct dmi_header hdr;
+	unsigned char manufacturer;
+	unsigned char product_name;
+	unsigned char version;
+	unsigned char serial_number;
+	unsigned char uuid[16];
+	unsigned char wakeup_type;
+	unsigned char sku_number;
+	unsigned char family;
+} __attribute__((packed));
+
+static struct field_desc system_information_desc[] = {
+	FIELD_DESC(struct system_information, manufacturer, 0),
+	FIELD_DESC(struct system_information, product_name, 0),
+	FIELD_DESC(struct system_information, version, 0),
+	FIELD_DESC(struct system_information, serial_number, 0),
+	FIELD_DESC(struct system_information, uuid, 16),
+	FIELD_DESC(struct system_information, wakeup_type, 1),
+	FIELD_DESC(struct system_information, sku_number, 0),
+	FIELD_DESC(struct system_information, family, 0),
+};
+
 #define PARSE_FIELD(table, dmi, fieldname) {				\
 		struct table *t = (struct table *)dmi;	\
 		if (dmi->length != sizeof(*t)) {			\
@@ -117,5 +140,7 @@ static struct field_desc bios_information_desc[] = {
 									\
 		return parse_dmi_field(dmi, (unsigned char *)dmi + desc->offset, desc->type_size); \
 	}
+
+char __attribute__((weak)) *dmi_get_product_name(void);
 
 #endif /* _PARSE_DMI_H_ */

@@ -1,0 +1,4 @@
+tests/.tmp.out
+tests/bin/*
+tests/obj/*
+*~

@@ -173,6 +173,9 @@ static char *dmi_getfield(struct dmi_header *dmi, char *field)
 	case BIOS_INFORMATION:
 		PARSE_FIELD(bios_information, dmi, field);
 		break;
+	case SYSTEM_INFORMATION:
+		PARSE_FIELD(system_information, dmi, field);
+		break;
 	default:
 		error("Table 0x%x not supported\n", dmi->type);
 		return NULL;
@@ -193,6 +196,11 @@ char *libdmi_getfield(enum smbios_type type, char *field)
 static char *dmi_get_vendor(void)
 {
 	return libdmi_getfield(0, "bios_vendor");
+}
+
+char *dmi_get_product_name(void)
+{
+	return libdmi_getfield(SYSTEM_INFORMATION, "product_name");
 }
 
 /*

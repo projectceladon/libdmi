@@ -1,0 +1,12 @@
+Available options:
+
+1. Make tests:
+	make
+
+2. Run tests:
+	make tests
+
+3. Clean tests:
+	make clean
+
+
