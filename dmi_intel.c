@@ -183,13 +183,20 @@ char *intel_dmi_parser(struct dmi_header *dmi, char *field)
 	switch (dmi->type) {
 	case INTEL_SMBIOS:
 		pn = dmi_get_product_name();
+
+		if (!pn) {
+			error("Cannot get product name\n");
+			return NULL;
+		}
+
 		if (strncmp(pn, "BROXTON", 7) == 0) {
 			free(pn);
 			struct platform_header *hdr = (struct platform_header *) dmi;
 			char table_format = hdr->Version & FORMAT_FIELD_MASK;
 			char *value = parse_dmi_field(dmi, (unsigned char *)dmi
 				+ offsetof(struct platform_header, Platform), 0);
-			if (strncmp(value, "Broxton-M", 10) || table_format != FORMAT_KV_TABLE) {
+			if (!value || strncmp(value, "Broxton-M", 10) ||
+			    table_format != FORMAT_KV_TABLE) {
 				error("Unsupported Platform: %s; Table Format: 0x%x\n",
 					value, table_format);
 				free(value);
