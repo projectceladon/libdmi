@@ -195,10 +195,14 @@ char *intel_dmi_parser(struct dmi_header *dmi, char *field)
 			char table_format = hdr->Version & FORMAT_FIELD_MASK;
 			char *value = parse_dmi_field(dmi, (unsigned char *)dmi
 				+ offsetof(struct platform_header, Platform), 0);
-			if (!value || strncmp(value, "Broxton-M", 10) ||
-			    table_format != FORMAT_KV_TABLE) {
+			if (!value) {
+				error("Cannot get value; Table Format: 0x%x\n",
+				      table_format);
+				return NULL;
+			} else if (strncmp(value, "Broxton-M", 10) ||
+				   table_format != FORMAT_KV_TABLE) {
 				error("Unsupported Platform: %s; Table Format: 0x%x\n",
-					value, table_format);
+				      value, table_format);
 				free(value);
 				return NULL;
 			}
@@ -213,6 +217,5 @@ char *intel_dmi_parser(struct dmi_header *dmi, char *field)
 	default:
 		error("Unsupported Intel table: 0x%x\n", dmi->type);
 	}
-out:
 	return NULL;
 }

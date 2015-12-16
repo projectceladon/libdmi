@@ -73,7 +73,6 @@ static int read_sysfs(const char *path, unsigned char *buffer)
 			buf += ret;
 	} while (ret > 0);
 
-close:
 	close(fd);
 
 	if (ret < 0) {
@@ -85,7 +84,6 @@ close:
 
 static struct dmi_header *dmisysfs_gettype(enum smbios_type type)
 {
-	int fd;
 	char *path;
 	int ret;
 	int size;
