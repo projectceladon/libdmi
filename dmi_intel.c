@@ -43,6 +43,8 @@
 #define FIELD_TYPE_DWORD     0x3
 #define FIELD_TYPE_STRING    0x4
 
+#define is_legacy_table(v) (((v) & FORMAT_FIELD_MASK) == FORMAT_FIXED_TABLE)
+
 struct intel_0x94 {
 	struct dmi_header hdr;
 	unsigned char GopVersion;
@@ -179,40 +181,14 @@ static char *intel_parse_kv_table(struct dmi_header *dmi, char *fieldname) {
 
 char *intel_dmi_parser(struct dmi_header *dmi, char *field)
 {
-	char *pn;
+	struct platform_header *hdr = (struct platform_header *) dmi;
+
 	switch (dmi->type) {
 	case INTEL_SMBIOS:
-		pn = dmi_get_product_name();
-
-		if (!pn) {
-			error("Cannot get product name\n");
-			return NULL;
-		}
-
-		if (strncmp(pn, "BROXTON", 7) == 0) {
-			free(pn);
-			struct platform_header *hdr = (struct platform_header *) dmi;
-			char table_format = hdr->Version & FORMAT_FIELD_MASK;
-			char *value = parse_dmi_field(dmi, (unsigned char *)dmi
-				+ offsetof(struct platform_header, Platform), 0);
-			if (!value) {
-				error("Cannot get value; Table Format: 0x%x\n",
-				      table_format);
-				return NULL;
-			} else if (strncmp(value, "Broxton-M", 10) ||
-				   table_format != FORMAT_KV_TABLE) {
-				error("Unsupported Platform: %s; Table Format: 0x%x\n",
-				      value, table_format);
-				free(value);
-				return NULL;
-			}
-			free(value);
+		if (!is_legacy_table(hdr->Version))
 			return intel_parse_kv_table(dmi, field);
-		}
-		else {
-			free(pn);
+		else
 			PARSE_FIELD(intel_0x94, dmi, field);
-		}
 		break;
 	default:
 		error("Unsupported Intel table: 0x%x\n", dmi->type);
