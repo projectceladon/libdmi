@@ -32,11 +32,12 @@
 
 #include <stdbool.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 static bool verbose = 1;
 
 #define LOG_TAG "libdmi"
-#include <utils/Log.h>
+#include <log/log.h>
 
 #define debug(...)				\
 	if (verbose) {				\
