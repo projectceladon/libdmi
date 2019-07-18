@@ -45,7 +45,7 @@
 
 #define is_legacy_table(v) (((v) & FORMAT_FIELD_MASK) == FORMAT_FIXED_TABLE)
 
-struct intel_0x94 {
+struct legacy_format {
 	struct dmi_header hdr;
 	unsigned char GopVersion;
 	unsigned char UCodeVersion;
@@ -71,29 +71,29 @@ struct intel_0x94 {
 	unsigned char RC6;
 };
 
-static struct field_desc intel_0x94_desc[] = {
-	FIELD_DESC(struct intel_0x94, GopVersion, 0),
-	FIELD_DESC(struct intel_0x94, UCodeVersion, 0),
-	FIELD_DESC(struct intel_0x94, MRCVersion, 0),
-	FIELD_DESC(struct intel_0x94, SECVersion, 0),
-	FIELD_DESC(struct intel_0x94, ULPMCVersion, 0),
-	FIELD_DESC(struct intel_0x94, PMCVersion, 0),
-	FIELD_DESC(struct intel_0x94, PUnitVersion, 0),
-	FIELD_DESC(struct intel_0x94, SoCVersion, 0),
-	FIELD_DESC(struct intel_0x94, BoardVersion, 0),
-	FIELD_DESC(struct intel_0x94, FabVersion, 0),
-	FIELD_DESC(struct intel_0x94, CPUFlavor, 0),
-	FIELD_DESC(struct intel_0x94, BiosVersion, 0),
-	FIELD_DESC(struct intel_0x94, PmicVersion, 0),
-	FIELD_DESC(struct intel_0x94, TouchVersion, 0),
-	FIELD_DESC(struct intel_0x94, SecureBoot, 0),
-	FIELD_DESC(struct intel_0x94, BootMode, 0),
-	FIELD_DESC(struct intel_0x94, SpeedStepMode, 0),
-	FIELD_DESC(struct intel_0x94, CPUTurboMode, 0),
-	FIELD_DESC(struct intel_0x94, MaxCState, 0),
-	FIELD_DESC(struct intel_0x94, GfxTurbo, 0),
-	FIELD_DESC(struct intel_0x94, S0ix, 0),
-	FIELD_DESC(struct intel_0x94, RC6, 0),
+static struct field_desc legacy_format_desc[] = {
+	FIELD_DESC(struct legacy_format, GopVersion, 0),
+	FIELD_DESC(struct legacy_format, UCodeVersion, 0),
+	FIELD_DESC(struct legacy_format, MRCVersion, 0),
+	FIELD_DESC(struct legacy_format, SECVersion, 0),
+	FIELD_DESC(struct legacy_format, ULPMCVersion, 0),
+	FIELD_DESC(struct legacy_format, PMCVersion, 0),
+	FIELD_DESC(struct legacy_format, PUnitVersion, 0),
+	FIELD_DESC(struct legacy_format, SoCVersion, 0),
+	FIELD_DESC(struct legacy_format, BoardVersion, 0),
+	FIELD_DESC(struct legacy_format, FabVersion, 0),
+	FIELD_DESC(struct legacy_format, CPUFlavor, 0),
+	FIELD_DESC(struct legacy_format, BiosVersion, 0),
+	FIELD_DESC(struct legacy_format, PmicVersion, 0),
+	FIELD_DESC(struct legacy_format, TouchVersion, 0),
+	FIELD_DESC(struct legacy_format, SecureBoot, 0),
+	FIELD_DESC(struct legacy_format, BootMode, 0),
+	FIELD_DESC(struct legacy_format, SpeedStepMode, 0),
+	FIELD_DESC(struct legacy_format, CPUTurboMode, 0),
+	FIELD_DESC(struct legacy_format, MaxCState, 0),
+	FIELD_DESC(struct legacy_format, GfxTurbo, 0),
+	FIELD_DESC(struct legacy_format, S0ix, 0),
+	FIELD_DESC(struct legacy_format, RC6, 0),
 };
 
 struct platform_header {
@@ -188,7 +188,7 @@ char *intel_dmi_parser(struct dmi_header *dmi, char *field)
 		if (!is_legacy_table(hdr->Version))
 			return intel_parse_kv_table(dmi, field);
 		else
-			PARSE_FIELD(intel_0x94, dmi, field);
+			PARSE_FIELD(legacy_format, dmi, field);
 		break;
 	default:
 		error("Unsupported Intel table: 0x%x\n", dmi->type);

@@ -41,7 +41,7 @@ static const char *test_entries[] = {
 static const int entries = (sizeof(test_entries)) / (sizeof(test_entries[0]));
 
 char *dmi_get_product_name() {
-	return strdup("BROXTON");
+	return strdup("UNKNOW");
 }
 
 unsigned char * load_table_from_file(FILE *file) {
