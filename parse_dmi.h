@@ -129,7 +129,7 @@ static struct field_desc system_information_desc[] = {
 #define PARSE_FIELD(table, dmi, fieldname) {				\
 		struct table *t = (struct table *)dmi;	\
 		if (dmi->length != sizeof(*t)) {			\
-			error("Table 0x%x has wrong size: is %d bytes, should be %d bytes\n", dmi->type, dmi->length, sizeof(*t)); \
+			error("Table 0x%x has wrong size: is %d bytes, should be %lu bytes\n", dmi->type, dmi->length, sizeof(*t)); \
 			return NULL;						\
 		}							\
 									\
